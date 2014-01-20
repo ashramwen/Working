@@ -1,0 +1,4 @@
+$(function() {
+	$('#strContent').PSEditor();
+});
+
