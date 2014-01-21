@@ -73,6 +73,8 @@
 			initMovieEditor(sender);
 			//SwitchEditor
 			initSwitchEditor(sender);
+			//BannerEditor
+			initBannerEditor(sender);
 			//cancel click
 			$("#PSEditor .ps_cnl").click(closeMask);
 			//Gallery Move
@@ -230,6 +232,7 @@
 			$switchArea1[0].$frame.contents().find("body").keypress(function(e) {
 				e.preventDefault();
 			});
+			$.extend(true, option2, defaultOption);
 			var $switchArea2 = $SwitchEditor.find(".switchArea2").cleditor(option2);
 			$SwitchEditor.find(".ps_drag").draggable({
 				revert : "invalid", // when not dropped, the item will revert back to its initial position
@@ -259,8 +262,61 @@
 				$sender.find('[data-type="AdImage"] img').each(function(index, element) {
 					$SwitchEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
 				});
-				openMask($SwitchEditor, 500, 497);
+				openMask($SwitchEditor, 500, 479);
 				$switchArea1[0].focus();
+			});
+		}
+
+		function initBannerEditor(sender) {
+			var $BannerEditor = $('#PSEditor .bannerEditor');
+			$BannerEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
+			var option1 = {
+				width : 315,
+				height : 90,
+				controls : "outerlink"
+			};
+			$.extend(true, option1, defaultOption);
+			var switchArea = new Array();
+			$BannerEditor.find("textarea").each(function(index) {
+				switchArea[index] = ($(this).cleditor(option1));
+			});
+
+			$.each(switchArea, function() {
+				this[0].$frame.contents().find("body").keypress(function(e) {
+					e.preventDefault();
+				});
+			});
+
+			$BannerEditor.find(".ps_drag").draggable({
+				revert : "invalid", // when not dropped, the item will revert back to its initial position
+				helper : "clone",
+				appendTo : ".bannerEditor"
+			});
+			$BannerEditor.find(".ps_widget_content_div").droppable({
+				accept : ".ps_drag",
+				drop : function(event, ui) {
+					var img = ui.draggable.find("img").data("src");
+					$(this).find("img").attr("src", img);
+				}
+			});
+			$BannerEditor.find(".ps_icon_trash").click(function() {
+				$(this).parent().find("img").attr("src", "");
+			});
+			$BannerEditor.find(".ps_ok").click(function() {
+				$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
+					$sender.find('[data-type="BannerImage"] img').eq(index).attr('src', $(element).find("img").attr('src'));
+					$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[0].getHtml());
+				});
+				closeMask();
+			});
+			$(sender).delegate('[data-type="BannerArea"]', 'click', function() {
+				$sender = $(this);
+				$sender.find('[data-type="BannerImage"]').each(function(index, element) {
+					$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
+				});
+				openMask($BannerEditor, 500, 642);
+				for (var i = 4; i >= 0; i--)
+					switchArea[i].focus();
 			});
 		}
 

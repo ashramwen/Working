@@ -11,48 +11,135 @@
 		<meta name="description" content="">
 		<meta name="author" content="augustine">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
 		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/black-tie/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="js/jquery.cleditor.css">
 		<link rel="stylesheet" type="text/css" href="js/pseditor.css">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	</head>
 
 	<body>
-		<div class="ADbanner AD220x160 bg_w" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-			<div data-type="AdUrl" data-textheight="90" data-element="文27" data-textfloat="right" data-textwidth="315" style="display: none; cursor: pointer;">
-				點擊上方編輯連結！
-			</div>
-			<div class="ad_textarea">
-				<div id="hiddenimage5" data-type="AdImage" data-element="圖片27" data-height="96px" data-width="112px" style="z-index: 2; position: absolute; visibility: hidden; cursor: pointer;">
-					<img src="/backweb/images/article_pic3.gif">
+		<div id="index_slidershow3" data-type="BannerArea">
+			<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 460px; height: 340px;">
+				<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
+				<div class="frame">
+					<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 2300px; left: -920px;">
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片15" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/images/article_pic3.gif" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文15" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片16" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/images/article_pic3.gif" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文16" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片17" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/images/article_pic3.gif" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文17" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片18" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/images/article_pic3.gif" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文18" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片19" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/images/article_pic3.gif" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文19" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+					</ul>
 				</div>
-				<div class="area_220x160" style="position: absolute; z-index: 1; cursor: pointer;" data-type="AdText" data-textheight="90" data-element="文28" data-textfloat="right" data-textwidth="315">
-					點擊這裡編輯文字！
+				<div class="pagination">
+					<ul>
+						<li class="">
+							0
+						</li>
+						<li class="">
+							1
+						</li>
+						<li class="active">
+							2
+						</li>
+						<li class="">
+							3
+						</li>
+						<li class="">
+							4
+						</li>
+					</ul>
 				</div>
-				<div data-type="AdImage" data-element="圖片28" data-height="96px" data-width="112px" style="width: 220px; height: 160px; background-color: white; position: absolute; cursor: pointer;">
-					<img src="/backweb/images/article_pic3.gif">
-				</div>
-			</div>
+			</div><a href="" class="pauseButton" style="display: none">pause</a>
 		</div>
-		<div class="ADbanner AD220x160 bg_w" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-			<div data-type="AdUrl" data-textheight="90" data-element="文27" data-textfloat="right" data-textwidth="315" style="display: none; cursor: pointer;">
-				[OpenNewPage]http://tw.yahoo.com
-			</div>
-			<div class="ad_textarea">
-				<div id="hiddenimage5" data-type="AdImage" data-element="圖片27" data-height="96px" data-width="112px" style="z-index: 2; position: absolute; visibility: hidden; cursor: pointer;">
-					<img src="/backweb/Upload/Ads/Main20140110002/Bb76c3a11-d26a-4893-80ca-3e7bdc91c2e2.JPG">
+
+		-----------------------------------------------------------------------------------------------
+		<div id="index_slidershow3" data-type="BannerArea">
+			<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 460px; height: 340px;">
+				<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
+				<div class="frame">
+					<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 2300px; left: -460px;">
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片15" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/Upload/Ads/Main20140110002/Bb76c3a11-d26a-4893-80ca-3e7bdc91c2e2.JPG" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文15" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								[OpenNewPage]http://tw.yahoo.com
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片16" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/Upload/Ads/Main20140110002/B58c63d21-d6dd-4ff4-ac73-1026e2261fbf.JPG" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文16" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片17" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/Upload/Ads/Main20140110002/B58c63d21-d6dd-4ff4-ac73-1026e2261fbf.JPG" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文17" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片18" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/Upload/Ads/Main20140110002/B58c63d21-d6dd-4ff4-ac73-1026e2261fbf.JPG" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文18" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								點擊上方編輯連結！
+							</div>
+						</li>
+						<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片19" data-height="96px" data-width="112px" onclick="">
+							<img src="/backweb/Upload/Ads/Main20140110002/B58c63d21-d6dd-4ff4-ac73-1026e2261fbf.JPG" width="460" height="340">
+							<div data-type="BannerUrl" data-textheight="90" data-element="文19" data-textfloat="left" data-textwidth="315" style="cursor: pointer;">
+								[OpenNewPage]http://tw.yahoo.com
+							</div>
+						</li>
+					</ul>
 				</div>
-				<div class="area_220x160" style="position: absolute; z-index: 1; cursor: pointer;" data-type="AdText" data-textheight="90" data-element="文28" data-textfloat="right" data-textwidth="315">
-					aaaaaaaaaaaaaaa
+				<div class="pagination">
+					<ul>
+						<li class="">
+							0
+						</li>
+						<li class="active">
+							1
+						</li>
+						<li>
+							2
+						</li>
+						<li>
+							3
+						</li>
+						<li>
+							4
+						</li>
+					</ul>
 				</div>
-				<div data-type="AdImage" data-element="圖片28" data-height="96px" data-width="112px" style="width: 220px; height: 160px; background-color: white; position: absolute; cursor: pointer;">
-					<img src="/backweb/Upload/Ads/Main20140110002/B58c63d21-d6dd-4ff4-ac73-1026e2261fbf.JPG">
-				</div>
-			</div>
+			</div><a href="" class="pauseButton" style="display: none">pause</a>
 		</div>
+
 	</body>
 </html>
