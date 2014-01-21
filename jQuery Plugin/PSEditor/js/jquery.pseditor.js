@@ -47,7 +47,8 @@
 			initSwitchEditor(sender);
 			//cancel click
 			$("#PSEditor .ps_cnl").click(closeMask);
-			albumMove();
+			//Gallery Move
+			galleryMove();
 		}
 
 		function openMask($target, newWidth, newHeight) {
@@ -77,23 +78,27 @@
 			imgIndex = 0;
 		}
 
-		function albumMove() {
+		//Gallery Move
+		function galleryMove() {
 			var imgW = "74";
 			var imgMax = 6;
-			var imgLength = $("#PSEditor .ps_divGallery:first").find(".ps_gallery").length - imgMax;
 			$("#PSEditor .ps_content .ps_picL").click(function() {
+				var $divGallery = $(this).parent(".ps_content").find(".ps_divGallery");
+				var imgLength = $divGallery.find(".ps_gallery").length - imgMax;
 				if (imgIndex == 0)
 					return;
 				imgIndex--;
-				$("#PSEditor .ps_divGallery").animate({
+				$divGallery.animate({
 					left : "+=" + imgW
 				}, '200');
 			});
-			$("#PSEditor .ps_picR").click(function() {
+			$("#PSEditor .ps_content .ps_picR").click(function() {
+				var $divGallery = $(this).parent(".ps_content").find(".ps_divGallery");
+				var imgLength = $divGallery.find(".ps_gallery").length - imgMax;
 				if (imgLength <= imgMax || imgIndex == imgLength)
 					return;
 				imgIndex++;
-				$("#PSEditor .ps_divGallery").animate({
+				$divGallery.animate({
 					left : "-=" + imgW
 				}, '200');
 			});
