@@ -8,6 +8,7 @@
 ( function($) {
 		var $sender;
 		var imgIndex = 0;
+		var imgArray = {};
 		var defaultOption = {
 			colors : "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " + "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " + "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " + "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " + "666 900 C60 C93 990 090 399 33F 60C 939 " + "333 600 930 963 660 060 366 009 339 636 " + "000 300 630 633 330 030 033 006 309 303",
 			fonts : "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," + "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
@@ -20,23 +21,50 @@
 		};
 		$.fn.PSEditor = function(options) {
 			var settings = $.extend({
-				getImgUrl : ""
+				getImgUrl : ''
 			}, options);
+			if (settings.getImgUrl == '')
+				throw 'The option [getImgUrl] is required.';
 			return this.each(function() {
-				initEditor(this);
+				initPSEditor(this, settings.getImgUrl);
 			});
 		};
 
-		function initEditor(sender) {
-			var src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
+		function initPSEditor(sender, getImgUrl) {
 			if ($("#PSEditor").length == 0) {
-				$.ajax({
-					async : false,
-					url : src
-				}).done(function(data) {
-					$('body').append(data);
+				var src = "";
+				if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
+					src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
+				else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
+					src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
+				$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
+					var editorHtml = ajax1[0];
+					var imgJson = JSON.parse(ajax2[0]);
+					var i = 0;
+					var imgs = new Array();
+					for (var img in imgJson) {
+						imgs[i++] = imgJson[img];
+					}
+					generateImg(imgs);
+					$('body').append(editorHtml);
+					initEditors(sender);
 				});
+			} else
+				initEditors(sender);
+		}
+
+		function generateImg(imgs) {
+			var thumbPattern = '<div><img src="{0}" data-src="{1}" /></div>';
+			var imgPattern = '<div><img src="{0}" /></div>';
+			for (var i = 0; i < imgs[0].length; i++) {
+				imgs[0][i] = String.format(thumbPattern, imgs[0][i], imgs[1][i]);
+				imgs[1][i] = String.format(imgPattern, imgs[1][i]);
 			}
+			imgArray.thumb = imgs[0].join("");
+			imgArray.original = imgs[1].join("");
+		}
+
+		function initEditors(sender) {
 			//TextEditor & TextImageEditor
 			initTextImageEditor(sender);
 			//ImgSelector
@@ -95,7 +123,7 @@
 			$("#PSEditor .ps_content .ps_picR").click(function() {
 				var $divGallery = $(this).parent(".ps_content").find(".ps_divGallery");
 				var imgLength = $divGallery.find(".ps_gallery").length - imgMax;
-				if (imgLength <= imgMax || imgIndex == imgLength)
+				if (imgLength <= 0 || imgIndex == imgLength)
 					return;
 				imgIndex++;
 				$divGallery.animate({
@@ -106,8 +134,8 @@
 
 		//TextEditor & TextImageEditor
 		function initTextImageEditor(sender) {
-			var imgPattern = '<div class="ps_gallery"><img src="images/7.jpg" /></div>';
 			var $textEditor = $("#PSEditor .textEditor");
+			$textEditor.find(".ps_divGallery").append($(imgArray.original).addClass("ps_gallery"));
 			var option = {
 				width : 428,
 				height : 297,
@@ -134,8 +162,8 @@
 		}
 
 		function initImgSelector(sender) {
-			var imgPattern = '<div class="ps_gallery"><img src="images/7.jpg" /></div>';
 			var $ImgSelector = $('#PSEditor .imgSelector');
+			$ImgSelector.find(".ps_album").append($(imgArray.thumb).find("img").addClass("albumimg ps_size80"));
 			$ImgSelector.find(".ps_album img").click(function() {
 				$ImgSelector.find(".ps_album img.blueborder").removeClass("blueborder");
 				$(this).addClass("blueborder");
@@ -185,6 +213,8 @@
 
 		function initSwitchEditor(sender) {
 			var $SwitchEditor = $('#PSEditor .switchEditor');
+			$SwitchEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
+			var a = 1;
 			var option1 = {
 				width : 315,
 				height : 90,
@@ -209,7 +239,7 @@
 			$SwitchEditor.find(".ps_widget_content_div").droppable({
 				accept : ".ps_drag",
 				drop : function(event, ui) {
-					var img = ui.draggable.find("img").attr("src");
+					var img = ui.draggable.find("img").data("src");
 					$(this).find("img").attr("src", img);
 				}
 			});
@@ -226,9 +256,23 @@
 			});
 			$(sender).delegate('[data-type="AdArea"]', 'click', function() {
 				$sender = $(this);
+				$sender.find('[data-type="AdImage"] img').each(function(index, element) {
+					$SwitchEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
+				});
 				openMask($SwitchEditor, 500, 497);
 				$switchArea1[0].focus();
 			});
 		}
 
+
+		String.format = function() {
+			if (arguments.length == 0)
+				return null;
+			var str = arguments[0];
+			for (var i = 1; i < arguments.length; i++) {
+				var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+				str = str.replace(re, arguments[i]);
+			}
+			return str;
+		};
 	}(jQuery));

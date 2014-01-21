@@ -1,4 +1,6 @@
 $(function() {
-	$('#strContent').PSEditor();
+	$('#strContent').PSEditor({
+		getImgUrl : 'testjson2'
+	});
 });
 
