@@ -232,6 +232,7 @@
 			$switchArea1[0].$frame.contents().find("body").keypress(function(e) {
 				e.preventDefault();
 			});
+			$switchArea1[0].focus();
 			$.extend(true, option2, defaultOption);
 			var $switchArea2 = $SwitchEditor.find(".switchArea2").cleditor(option2);
 			$SwitchEditor.find(".ps_drag").draggable({
@@ -262,8 +263,9 @@
 				$sender.find('[data-type="AdImage"] img').each(function(index, element) {
 					$SwitchEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
 				});
+				$switchArea1.updateHtml($sender.find('[data-type="AdUrl"]').html());
+				$switchArea2.updateHtml($sender.find('[data-type="AdText"]').html());
 				openMask($SwitchEditor, 500, 479);
-				$switchArea1[0].focus();
 			});
 		}
 
@@ -278,15 +280,13 @@
 			$.extend(true, option1, defaultOption);
 			var switchArea = new Array();
 			$BannerEditor.find("textarea").each(function(index) {
-				switchArea[index] = ($(this).cleditor(option1));
-			});
-
-			$.each(switchArea, function() {
-				this[0].$frame.contents().find("body").keypress(function(e) {
+				var editor = $(this).cleditor(option1);
+				editor.focus();
+				editor[0].$frame.contents().find("body").keypress(function(e) {
 					e.preventDefault();
 				});
+				switchArea[index] = editor;
 			});
-
 			$BannerEditor.find(".ps_drag").draggable({
 				revert : "invalid", // when not dropped, the item will revert back to its initial position
 				helper : "clone",
@@ -305,7 +305,7 @@
 			$BannerEditor.find(".ps_ok").click(function() {
 				$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
 					$sender.find('[data-type="BannerImage"] img').eq(index).attr('src', $(element).find("img").attr('src'));
-					$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[0].getHtml());
+					$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[index].getHtml());
 				});
 				closeMask();
 			});
@@ -314,9 +314,10 @@
 				$sender.find('[data-type="BannerImage"]').each(function(index, element) {
 					$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
 				});
+				$sender.find('[data-type="BannerUrl"]').each(function(index) {
+					switchArea[index].updateHtml($(this).html());
+				});
 				openMask($BannerEditor, 500, 642);
-				for (var i = 4; i >= 0; i--)
-					switchArea[i].focus();
 			});
 		}
 
