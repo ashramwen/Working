@@ -311,11 +311,9 @@
 			});
 			$(sender).delegate('[data-type="BannerArea"]', 'click', function() {
 				$sender = $(this);
-				$sender.find('[data-type="BannerImage"]').each(function(index, element) {
-					$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
-				});
-				$sender.find('[data-type="BannerUrl"]').each(function(index) {
-					switchArea[index].updateHtml($(this).html());
+				$.each(switchArea, function(index, element){
+					$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="BannerImage"] img').eq(index).attr('src'));
+					element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
 				});
 				openMask($BannerEditor, 500, 642);
 			});
