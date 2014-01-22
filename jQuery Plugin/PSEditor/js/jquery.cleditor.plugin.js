@@ -57,7 +57,7 @@
 
 		//update cleditor content html
 		$.fn.updateHtml = function(html) {
-			this[0].$frame.contents().find("body").html(html.trim().replace(/<!--(.*?)-->/gm, ""));
+			this[0].$frame.contents().find("body").html($.trim(html).replace(/<!--(.*?)-->/gm, ""));
 			//this[0].updateFrame();
 		};
 	}(jQuery));

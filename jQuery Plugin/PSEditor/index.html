@@ -5,376 +5,93 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.cleditor.css">
 		<link rel="stylesheet" type="text/css" href="css/jquery.pseditor.css">
+		<link rel="stylesheet" type="text/css" href="css/home_slidershow.css">
+		<link rel="stylesheet" type="text/css" href="css/base.css">
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cleditor.plugin.js"></script>
 		<script type="text/javascript" src="js/jquery.pseditor.js"></script>
 		<script type="text/javascript" src="js/editor.js"></script>
+		<script type="text/javascript" src="js/homeslider_docs.js"></script>
 		<title>New Web Project</title>
 	</head>
 	<body>
 		<h1>New Web Project Page</h1>
 		<form>
 			<div id="strContent">
-				<div data-modelid="1" data-modelname="美食版型">
-					<div id="event_wrapper">
-						<div id="banner_box" >
-							<h1>
-							<div data-type="Text" data-element="文1">
-								請輸入活動標題<!--上限12字-->
-							</div></h1>
-							<div class="banner_title2" data-type="Text" data-element="文2">
-								請輸入活動副標題<!--上限20字-->
-							</div>
-							<div class="banner_text" data-type="Text" data-element="文3">
-								<h2>請輸入活動簡介<!--上限100字-->文案</h2>
-							</div>
-							<div id="button1" class="banner_btn_1_de" data-type="Image" data-element="圖片1"><img src="images/btn_1_de.png"/>
-							</div>
-							<div id="button2" class="banner_btn_2_de" data-type="Image" data-element="圖片2"><img src="images/btn_2_de.png"/>
-							</div>
-							<div id="button3" class="banner_btn_3_de" data-type="Image" data-element="圖片3"><img src="images/btn_3_de.png"/>
-							</div><div id="fb_button" class="banner_btn_fb_de"></div>
+				<div data-type="Text" data-element="文1">
+					純文字編輯器<!--點擊此行預設文字會出現CLEditor-->
+				</div>
+				<br />
+				<div data-type="TextImage" data-element="文2">
+					文字圖片編輯器<!--點擊此行預設文字會出現CLEditor-->
+				</div>
+				<br />
+				<div class="event_btn_go" class="event_btn_go" data-type="Image" data-element="圖片1">
+					<img src="images/1.jpg" width="112" height="62" title="圖片選擇器" />
+				</div>
+				<div class="clear"></div>
+				<br />
+				<div class="ADbanner AD220x160 bg_b" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
+					<div data-type="AdUrl" data-textHeight="90" data-element="文33" data-textfloat="right" data-textWidth="315" style="display:none">
+						點擊上方編輯連結！
+					</div>
+					<div class="ad_textarea">
+						<div id="hiddenimage7" data-type="AdImage" data-element="圖片33" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
 						</div>
-						<div id="banner_box_bg" data-type="Image" data-element="圖片9"><img src="images/event_banner_bg.jpg">
-						</div><!--Banner Area END--><!--Text Area START-->
-						<div class="event_txt_box">
-							<div class="event_nav">
-								<ul>
-									<li id="cell1" class="active" data-type="Text" data-element="文4">
-										選單項目一
-									</li>
-									<li id="cell2" class="inactive" data-type="Text" data-element="文5">
-										選單項目二
-									</li>
-									<li id="cell3" class="inactive" data-type="Text" data-element="文6">
-										選單項目三
-									</li>
-									<li id="cell4" class="inactive" data-type="Text" data-element="文7">
-										選單項目四
-									</li>
-									<li id="cell5" class="inactive" data-type="Text" data-element="文8">
-										選單項目五
-									</li>
-								</ul>
-							</div>
-							<div class="event_txt" id="scroll-pane">
-								<div id="d1">
-									<div data-type="TextImage" data-element="文9">
-										項目一內文，點擊以編輯內容文字。<!--點擊此行預設文字會出現CKEditor-->
-									</div>
-									<div class="event_btn_go" data-type="Image" data-element="圖片4"><img src="images/1.jpg" width="112" height="62" title="更換參加按鈕的圖片" />
-									</div>
-								</div><!--Text Area END--><!--Text Area START-->
-								<div class="big_photo_wide" data-type="Movie" data-element="影片" style="cursor: pointer;">
-									<img src="http://newemylife.3rdchannel.com.tw/backweb/images/article_big_clip.gif" width="640" height="360" />
-									<div class="youtubeedit">
-										按此編輯youtube！
-									</div>
-								</div>
-								<div id="d2" >
-									<div data-type="TextImage" data-element="文10">
-										項目二內文，點擊以編輯內容文字。<!--點擊此行預設文字會出現CKEditor-->
-									</div>
-									<div class="event_btn_go" class="event_btn_go" data-type="Image" data-element="圖片5"><img src="images/2.jpg" width="112" height="62" title="更換參加按鈕的圖片" />
-									</div>
-								</div><!--Text Area END--><!--Text Area START-->
-								<div id="d3" >
-									<div data-type="TextImage" data-element="文11">
-										項目三內文，點擊以編輯內容文字。<!--點擊此行預設文字會出現CKEditor-->
-									</div>
-									<div class="event_btn_go" class="event_btn_go" data-type="Image" data-element="圖片6"><img src="images/btn_replace.png" width="112" height="62" title="更換參加按鈕的圖片" />
-									</div>
-								</div><!--Text Area END--><!--Text Area START-->
-								<div id="d4" >
-									<div data-type="TextImage" data-element="文12">
-										項目四內文，點擊以編輯內容文字。<!--點擊此行預設文字會出現CKEditor-->
-									</div>
-									<div class="event_btn_go" class="event_btn_go" data-type="Image" data-element="圖片7"><img src="images/btn_replace.png" width="112" height="62" title="更換參加按鈕的圖片" />
-									</div>
-								</div><!--Text Area END--><!--Text Area START-->
-								<div id="d5" >
-									<div data-type="TextImage" data-element="文13">
-										項目五內文，點擊以編輯內容文字。<!--點擊此行預設文字會出現CKEditor-->
-									</div>
-									<div class="event_btn_go" class="event_btn_go" data-type="Image" data-element="圖片8"><img src="images/btn_replace.png" width="112" height="62" title="更換參加按鈕的圖片" />
-									</div>
-								</div>
-							</div>
-						</div><!--Text Area END--><!--Focal Area START--><div id="promote"></div><!--Focal Area END--><div class="line"></div><!--Wall Area START--><a name="wall"></a>
-						<div data-type="Text" data-element="文14" class="wall_box_title">
-							[全部文章] 點擊以編輯標題
-						</div><div id="water_fall" class="wall_box"></div><!--Wall Area END--><!--Page Area START--><!--Page Area END-->
+						<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文34" data-textfloat="right" data-textWidth="315">
+							點擊這裡編輯文字！
+						</div>
+						<div data-type="AdImage" data-element="圖片34" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
+						</div>
 					</div>
 				</div>
+				<div class="clear"></div>
+				<br />
+				<br />
+				<br />
 				<div class="big_photo_wide" data-type="Movie" data-element="影片" style="cursor: pointer;">
 					<img src="http://newemylife.3rdchannel.com.tw/backweb/images/article_big_clip.gif" width="640" height="360" />
 					<div class="youtubeedit">
 						按此編輯youtube！
 					</div>
 				</div>
-				<div id="page">
-					<div id="index_slidershow" data-type="BannerArea">
-						<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 940px;">
-							<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
-							<div class="frame">
-								<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 4700px; left: -2820px;">
-									<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片1" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
-										<div data-type="BannerUrl" data-textHeight="90" data-element="文1" data-textfloat="left" data-textWidth="315">
-											點擊上方編輯連結！
-										</div>
-									</li>
-									<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片2" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
-										<div data-type="BannerUrl" data-textHeight="90" data-element="文2" data-textfloat="left" data-textWidth="315">
-											點擊上方編輯連結！
-										</div>
-									</li>
-									<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片3" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
-										<div data-type="BannerUrl" data-textHeight="90" data-element="文3" data-textfloat="left" data-textWidth="315">
-											點擊上方編輯連結！
-										</div>
-									</li>
-									<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片4" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
-										<div data-type="BannerUrl" data-textHeight="90" data-element="文4" data-textfloat="left" data-textWidth="315">
-											點擊上方編輯連結！
-										</div>
-									</li>
-									<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片5" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
-										<div data-type="BannerUrl" data-textHeight="90" data-element="文5" data-textfloat="left" data-textWidth="315">
-											點擊上方編輯連結！
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div><a href="" class="pauseButton" style="display: none">pause</a>
-					</div>
-					<div class="page_adshow_wrap">
-						<div class="page_adshow">
-							<div class="page_adshow_left">
-								<div class="page_slidershow">
-									<div id="Function_Group " >
-										<div id="index_slidershow4" class="icons slideshow-container" data-type="BannerArea">
-											<div class="show_nav slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 700px; height:300px" >
-												<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
-												<div class="show_box_wrap frame" style="width: 700px; height:300px;">
-													<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 3500px; left: -2100px;">
-														<li class="item carousel-home" style="cursor: pointer; float: left; width: 700px; height: 300px;" data-type="BannerImage" data-element="圖片6" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="700" height="300">
-															<div data-type="BannerUrl" data-textHeight="90" data-element="文6" data-textfloat="left" data-textWidth="315">
-																點擊上方編輯連結！
-															</div>
-														</li>
-														<li class="item carousel-home" style="cursor: pointer; float: left; width: 700px; height: 300px;" data-type="BannerImage" data-element="圖片7" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="700" height="300">
-															<div data-type="BannerUrl" data-textHeight="90" data-element="文7" data-textfloat="left" data-textWidth="315">
-																點擊上方編輯連結！
-															</div>
-														</li>
-														<li class="item carousel-home" style="cursor: pointer; float: left; width: 700px; height: 300px;" data-type="BannerImage" data-element="圖片8" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="700" height="300">
-															<div data-type="BannerUrl" data-textHeight="90" data-element="文8" data-textfloat="left" data-textWidth="315">
-																點擊上方編輯連結！
-															</div>
-														</li>
-														<li class="item carousel-home" style="cursor: pointer; float: left; width: 700px; height: 300px;" data-type="BannerImage" data-element="圖片9" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="700" height="300">
-															<div data-type="BannerUrl" data-textHeight="90" data-element="文9" data-textfloat="left" data-textWidth="315">
-																點擊上方編輯連結！
-															</div>
-														</li>
-														<li class="item carousel-home" style="cursor: pointer; float: left; width: 700px; height: 300px;" data-type="BannerImage" data-element="圖片10" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="700" height="300">
-															<div data-type="BannerUrl" data-textHeight="90" data-element="文10" data-textfloat="left" data-textWidth="315">
-																點擊上方編輯連結！
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div><a href="" class="pauseButton" style="display: none">pause</a>
-										</div>
-									</div>
-								</div><div class="sphi20"></div>
-								<div class="f_right">
-									<div class="ADbanner AD220x160" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-										<div data-type="AdUrl" data-textHeight="90" data-element="文11" data-textfloat="right" data-textWidth="315" style="display:none">
-											點擊上方編輯連結！
-										</div>
-										<div class="ad_textarea">
-											<div id="hiddenimage1" data-type="AdImage" data-element="圖片11" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-											</div>
-											<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文12" data-textfloat="right" data-textWidth="315">
-												點擊這裡編輯文字！
-											</div>
-											<div data-type="AdImage" data-element="圖片12" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-											</div>
-										</div>
-									</div>
-									<div class="ADbanner AD220x160" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-										<div data-type="AdUrl" data-textHeight="90" data-element="文13" data-textfloat="right" data-textWidth="315" style="display:none">
-											點擊上方編輯連結！
-										</div>
-										<div class="ad_textarea">
-											<div id="hiddenimage2" data-type="AdImage" data-element="圖片13" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-											</div>
-											<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文14" data-textfloat="right" data-textWidth="315">
-												點擊這裡編輯文字！
-											</div>
-											<div data-type="AdImage" data-element="圖片14" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="index_slidershow3" data-type="BannerArea">
-									<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 460px; height:340px;">
-										<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
-										<div class="frame">
-											<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 2300px; left: -1380px;">
-												<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片15" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-													<div data-type="BannerUrl" data-textHeight="90" data-element="文15" data-textfloat="left" data-textWidth="315">
-														點擊上方編輯連結！
-													</div>
-												</li>
-												<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片16" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-													<div data-type="BannerUrl" data-textHeight="90" data-element="文16" data-textfloat="left" data-textWidth="315">
-														點擊上方編輯連結！
-													</div>
-												</li>
-												<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片17" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-													<div data-type="BannerUrl" data-textHeight="90" data-element="文17" data-textfloat="left" data-textWidth="315">
-														點擊上方編輯連結！
-													</div>
-												</li>
-												<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片18" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-													<div data-type="BannerUrl" data-textHeight="90" data-element="文18" data-textfloat="left" data-textWidth="315">
-														點擊上方編輯連結！
-													</div>
-												</li>
-												<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片19" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-													<div data-type="BannerUrl" data-textHeight="90" data-element="文19" data-textfloat="left" data-textWidth="315">
-														點擊上方編輯連結！
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div><a href="" class="pauseButton" style="display: none">pause</a>
-								</div>
-								<hr class="sphi1">
-								<div class="f_right">
-									<div id="index_slidershow2" data-type="BannerArea">
-										<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 460px; height: 340px;">
-											<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
-											<div class="frame">
-												<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 2300px; left: -1380px;">
-													<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片20" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-														<div data-type="BannerUrl" data-textHeight="90" data-element="文20" data-textfloat="left" data-textWidth="315">
-															點擊上方編輯連結！
-														</div>
-													</li>
-													<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片21" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-														<div data-type="BannerUrl" data-textHeight="90" data-element="文21" data-textfloat="left" data-textWidth="315">
-															點擊上方編輯連結！
-														</div>
-													</li>
-													<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片22" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-														<div data-type="BannerUrl" data-textHeight="90" data-element="文22" data-textfloat="left" data-textWidth="315">
-															點擊上方編輯連結！
-														</div>
-													</li>
-													<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片23" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-														<div data-type="BannerUrl" data-textHeight="90" data-element="文23" data-textfloat="left" data-textWidth="315">
-															點擊上方編輯連結！
-														</div>
-													</li>
-													<li class="item carousel-home" style="cursor: pointer; float: left; width: 460px; height: 340px;" data-type="BannerImage" data-element="圖片24" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="460" height="340">
-														<div data-type="BannerUrl" data-textHeight="90" data-element="文24" data-textfloat="left" data-textWidth="315">
-															點擊上方編輯連結！
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div><a href="" class="pauseButton" style="display: none">pause</a>
-									</div>
-								</div>
-								<div class="ADbanner AD220x160" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-									<div data-type="AdUrl" data-textHeight="90" data-element="文25" data-textfloat="right" data-textWidth="315" style="display:none">
+				<div class="clear"></div>
+				<br />
+				<div id="index_slidershow" data-type="BannerArea">
+					<div class="slideshow-container slideshow-home col-16" style="position: relative; z-index: 2; left: 0px; width: 940px;">
+						<a href="" class="slideshow-prev hidden">Prev</a><a href="" class="slideshow-next hidden">Next</a>
+						<div class="frame">
+							<ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 4700px; left: -2820px;">
+								<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片1" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
+									<div data-type="BannerUrl" data-textHeight="90" data-element="文1" data-textfloat="left" data-textWidth="315">
 										點擊上方編輯連結！
 									</div>
-									<div class="ad_textarea">
-										<div id="hiddenimage4" data-type="AdImage" data-element="圖片25" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-										</div>
-										<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文26" data-textfloat="right" data-textWidth="315">
-											點擊這裡編輯文字！
-										</div>
-										<div data-type="AdImage" data-element="圖片26" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-										</div>
-									</div>
-								</div>
-								<div class="ADbanner AD220x160 bg_w" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-									<div data-type="AdUrl" data-textHeight="90" data-element="文27" data-textfloat="right" data-textWidth="315" style="display:none">
+								</li>
+								<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片2" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
+									<div data-type="BannerUrl" data-textHeight="90" data-element="文2" data-textfloat="left" data-textWidth="315">
 										點擊上方編輯連結！
 									</div>
-									<div class="ad_textarea">
-										<div id="hiddenimage5" data-type="AdImage" data-element="圖片27" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-										</div>
-										<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文28" data-textfloat="right" data-textWidth="315">
-											點擊這裡編輯文字！
-										</div>
-										<div data-type="AdImage" data-element="圖片28" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-										</div>
-									</div>
-								</div><div class="clear"></div>
-							</div>
-							<div class="page_adshow_right">
-								<div class="ADbanner2 AD220x3002 bg_b bg_Gray666" >
-									<div class="ad_textarea">
-										<div class="area_220x300" style="padding:0px;">
-											<div style="position:absolute;z-index:1;" data-type="Text" data-textHeight="90" data-element="文29" data-textfloat="right" data-textWidth="315">
-												點擊這裡編輯文字！
-											</div>
-											<div data-type="Image" data-element="圖片29" data-height="96px" data-width="112px" style="width:220px; height:300px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="ad_area bg_Gray666 haveCollage" style="cursor:pointer; height:340px">
-									<div class="area_220x340" style="padding:0px;">
-										<div style="position:absolute;z-index:1;" data-type="Text" data-textHeight="90" data-element="文30" data-textfloat="right" data-textWidth="315">
-											點擊這裡編輯文字！
-										</div>
-										<div data-type="Image" data-element="圖片30" data-height="96px" data-width="112px" style="width:220px; height:340px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" style="width:220px; height:340px;"/>
-										</div>
-									</div>
-								</div><div class="sphi20"></div>
-								<div class="ADbanner AD220x160 bg_w" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-									<div data-type="AdUrl" data-textHeight="90" data-element="文31" data-textfloat="right" data-textWidth="315" style="display:none">
+								</li>
+								<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片3" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
+									<div data-type="BannerUrl" data-textHeight="90" data-element="文3" data-textfloat="left" data-textWidth="315">
 										點擊上方編輯連結！
 									</div>
-									<div class="ad_textarea">
-										<div id="hiddenimage6" data-type="AdImage" data-element="圖片31" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-										</div>
-										<div class="area_220x160" style="padding:0px;">
-											<div style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文32" data-textfloat="right" data-textWidth="315">
-												點擊這裡編輯文字！
-											</div>
-											<div data-type="AdImage" data-element="圖片32" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<br />
-								<div class="ADbanner AD220x160 bg_b" style="cursor:pointer;" data-type="AdArea" onclick="" onmouseover="" onmouseout="">
-									<div data-type="AdUrl" data-textHeight="90" data-element="文33" data-textfloat="right" data-textWidth="315" style="display:none">
+								</li>
+								<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片4" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
+									<div data-type="BannerUrl" data-textHeight="90" data-element="文4" data-textfloat="left" data-textWidth="315">
 										點擊上方編輯連結！
 									</div>
-									<div class="ad_textarea">
-										<div id="hiddenimage7" data-type="AdImage" data-element="圖片33" data-height="96px" data-width="112px" style="z-index:2; position:absolute; visibility:hidden;"><img src="images/article_pic3.gif" />
-										</div>
-										<div class="area_220x160" style="position:absolute;z-index:1;" data-type="AdText" data-textHeight="90" data-element="文34" data-textfloat="right" data-textWidth="315">
-											點擊這裡編輯文字！
-										</div>
-										<div data-type="AdImage" data-element="圖片34" data-height="96px" data-width="112px" style="width:220px; height:160px;background-color:white;position:absolute;"><img src="images/article_pic3.gif" />
-										</div>
+								</li>
+								<li class="item carousel-home" style="cursor: pointer; float: left; width: 940px; height: 440px;" data-type="BannerImage" data-element="圖片5" data-height="96px" data-width="112px" onclick=""><img src="images/article_pic3.gif" width="940" height="440">
+									<div data-type="BannerUrl" data-textHeight="90" data-element="文5" data-textfloat="left" data-textWidth="315">
+										點擊上方編輯連結！
 									</div>
-								</div>
-							</div><div class="clear"></div>
+								</li>
+							</ul>
 						</div>
-					</div>
+					</div><a href="" class="pauseButton" style="display: none">pause</a>
 				</div>
 			</div>
 		</form>
