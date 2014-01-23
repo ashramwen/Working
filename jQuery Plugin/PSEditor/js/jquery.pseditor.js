@@ -225,7 +225,7 @@
 			var option2 = {
 				width : 315,
 				height : 90,
-				controls : "bold italic underline | bullets | color | link | pastetext"
+				controls : "bold italic underline | bullets | color | insertlink unlink | pastetext"
 			};
 			$.extend(true, option1, defaultOption);
 			var $switchArea1 = $SwitchEditor.find(".switchArea1").cleditor(option1);
