@@ -141,7 +141,7 @@
 			var option = {
 				width : 428,
 				height : 297,
-				controls : "bold italic underline | bullets | color | link insertlink unlink | pastetext"
+				controls : "bold italic underline | bullets | color | insertlink unlink | pastetext"
 			};
 			$.extend(true, option, defaultOption);
 			var $txtEdit = $textEditor.find("textarea").cleditor(option);
