@@ -3,6 +3,49 @@
  * @author augustine
  */
 ( function($) {
+		var popupContent = '<input type="radio" name="newtab" value="1" checked/>直接導頁<input type="radio" name="newtab" value="2"/>新開頁面<br /><textarea rows="3" maxlength="300" style="width:235px;resize:none;">http://</textarea><br /><button type="button">確認</button>';
+
+		$.cleditor.buttons.insertlink = {
+			name : "insertlink",
+			image : "outerlink.png",
+			title : "請選擇欲插入連結的文字",
+			command : "inserthtml",
+			popupName : "insertlink",
+			popupClass : "cleditorPrompt",
+			popupContent : '<input type="radio" name="newtab" value="1" checked/>直接導頁<input type="radio" name="newtab" value="2"/>新開頁面<br /><textarea rows="3" maxlength="300" style="width:235px;resize:none;">http://</textarea><br /><button type="button">確認</button>',
+			buttonClick : insertlinkClick
+		};
+
+		function insertlinkClick(e, data) {
+			var editor = data.editor;
+			var buttonDiv = e.target;
+			var clicktext = editor.selectedText();
+			if (clicktext === "") {
+				showMessage(editor, "請選擇欲插入連結的文字", buttonDiv);
+				return false;
+			} else {
+				// Wire up the submit button click event
+				$(data.popup).children(":button").unbind("click").bind("click", function(e) {
+					// Get the entered outerlink
+					var outerlink = $(data.popup).find("textarea").val();
+					$(data.popup).find("textarea").val("");
+
+					// Insert some html into the document
+					var html = "";
+					if ($(data.popup).find(':radio:last').prop('checked'))
+						html = "<a href=\"" + outerlink + "\" target=\"_blank\" >" + clicktext + "</a>";
+					else
+						html = "<a href=\"" + outerlink + "\" >" + clicktext + "</a>";
+
+					editor.execCommand(data.command, html, null, data.button);
+
+					// Hide the popup and set focus back to the editor
+					editor.hidePopups();
+					editor.focus();
+				});
+			}
+		}
+
 		//outerlink button
 		$.cleditor.buttons.outerlink = {
 			name : "outerlink",
@@ -11,7 +54,7 @@
 			command : "inserthtml",
 			popupName : "outerlink",
 			popupClass : "cleditorPrompt",
-			popupContent : '<input type="radio" name="newtab" value="1" checked/>直接導頁<input type="radio" name="newtab" value="2"/>新開頁面<br /><textarea rows="3" maxlength="300" style="width:235px;resize:none;">http://</textarea><br /><button type="button">確認</button>',
+			popupContent : '<input type="radio" name="newtab2" value="1" checked/>直接導頁<input type="radio" name="newtab2" value="2"/>新開頁面<br /><textarea rows="3" maxlength="300" style="width:235px;resize:none;">http://</textarea><br /><button type="button">確認</button>',
 			buttonClick : outerlinkClick
 		};
 
