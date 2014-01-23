@@ -18,10 +18,9 @@
 
 		function insertlinkClick(e, data) {
 			var editor = data.editor;
-			var buttonDiv = e.target;
-			var clicktext = editor.selectedText();
+			var clicktext = editor.selectedText(editor);
 			if (clicktext === "") {
-				showMessage(editor, "請選擇欲插入連結的文字", buttonDiv);
+				editor.showMessage("請選擇欲插入連結的文字", data.button);
 				return false;
 			} else {
 				// Wire up the submit button click event
