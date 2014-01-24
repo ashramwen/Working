@@ -5,7 +5,9 @@
  *
  * Date: 2014/01/13
  */
-( function($) {
+
+;(function($) {
+	var PSEditor = function(element1, options) {
 		var $sender;
 		var imgIndex = 0;
 		var imgArray = {};
@@ -19,15 +21,16 @@
 			docCSSFile : "",
 			bodyStyle : "margin: 4px; font-family:微軟正黑體, Arial; cursor:text"
 		};
-		$.fn.PSEditor = function(options) {
-			var settings = $.extend({
-				getImgUrl : ''
-			}, options);
-			if (settings.getImgUrl == '')
-				throw 'The option [getImgUrl] is required.';
-			return this.each(function() {
-				initPSEditor(this, settings.getImgUrl);
-			});
+		var settings = $.extend({
+			getImgUrl : ''
+		}, options);
+
+		var plugin = this;
+		this.publicMethod = function() {
+			console.log('public method called!');
+		};
+		plugin.GetElement = function() {
+			return "text";
 		};
 
 		function initPSEditor(sender, getImgUrl) {
@@ -311,7 +314,7 @@
 			});
 			$(sender).delegate('[data-type="BannerArea"]', 'click', function() {
 				$sender = $(this);
-				$.each(switchArea, function(index, element){
+				$.each(switchArea, function(index, element) {
 					$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="BannerImage"] img').eq(index).attr('src'));
 					element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
 				});
@@ -320,14 +323,25 @@
 		}
 
 
-		String.format = function() {
-			if (arguments.length == 0)
-				return null;
-			var str = arguments[0];
-			for (var i = 1; i < arguments.length; i++) {
-				var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
-				str = str.replace(re, arguments[i]);
-			}
-			return str;
+		plugin.init = function() {
+			if (settings.getImgUrl == '')
+				throw 'The option [getImgUrl] is required.';
+			initPSEditor(element1, settings.getImgUrl);
 		};
-	}(jQuery));
+		plugin.init();
+	};
+
+	$.fn.PSEditor = function(options) {
+		var plugins = new Array();
+		this.each(function() {
+			if (undefined == $(this).data('PSEditor')) {
+				var plugin = new PSEditor(this, options);
+				$(this).data('PSEditor', plugin);
+				plugins.push(plugin);
+			}
+		});
+		return plugins;
+	};
+
+})(jQuery);
+
