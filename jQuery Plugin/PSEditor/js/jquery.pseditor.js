@@ -16,6 +16,7 @@ String.format = function() {
 	return str;
 }; ( function($) {
 		var PSEditor = function(element1, options) {
+			var plugin = this;
 			var $sender;
 			var imgIndex = 0;
 			var imgArray = {};
@@ -31,38 +32,30 @@ String.format = function() {
 			};
 			var settings = $.extend({
 				getImgUrl : ''
-			}, options);
-
-			var plugin = this;
-			this.publicMethod = function() {
-				console.log('public method called!');
-			};
-			plugin.GetElement = function() {
-				return "text";
-			};
-
-			function initPSEditor(sender, getImgUrl) {
-				if ($("#PSEditor").length == 0) {
-					var src = "";
-					if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
-						src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
-					else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
-						src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
-					$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
-						var editorHtml = ajax1[0];
-						var imgJson = JSON.parse(ajax2[0]);
-						var i = 0;
-						var imgs = new Array();
-						for (var img in imgJson) {
-							imgs[i++] = imgJson[img];
-						}
-						generateImg(imgs);
-						$('body').append(editorHtml);
+			}, options); ( function initPSEditor(sender, getImgUrl) {
+					if (getImgUrl == '')
+						throw 'The option [getImgUrl] is required.';
+					if ($("#PSEditor").length == 0) {
+						var src = "";
+						if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
+							src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
+						else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
+							src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
+						$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
+							var editorHtml = ajax1[0];
+							var imgJson = JSON.parse(ajax2[0]);
+							var i = 0;
+							var imgs = new Array();
+							for (var img in imgJson) {
+								imgs[i++] = imgJson[img];
+							}
+							generateImg(imgs);
+							$('body').append(editorHtml);
+							initEditors(sender);
+						});
+					} else
 						initEditors(sender);
-					});
-				} else
-					initEditors(sender);
-			}
+				}(element1, settings.getImgUrl));
 
 			function generateImg(imgs) {
 				var thumbPattern = '<div><img src="{0}" data-src="{1}" /></div>';
@@ -196,21 +189,37 @@ String.format = function() {
 			}
 
 			//get youtube vedio id
-			function getYoutubeId(url) {
-				var regExp = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
+			function getVideo(url) {
+				//var regExp = /^.*(youtu).*(.com/be.com\/|.be\/|v\/|e\/|u\/\w+\/|embed\/|v=|id_)([^#\&\?]*).*/;
+				//var regExp = /^.*(youku).*(\/|v\/|e\/|u\/\w+\/|embed\/|id_)([^#\&\?|.html]*).*/;
+				var regExp = new RegExp('^.*(youtu|youku).*(.com/be.com\/|.be\/|v\/|e\/|u\/\w+\/|embed\/|v=|id_)([^#\&\?]*).*', 'i');
 				var match = url.match(regExp);
-				if (match)
-					return match[2];
+				if (match) {
+					return getEmbed(match[1], match[3]);
+				}
+				return '';
+			}
+
+			function getEmbed(provider, vid) {
+				var iframe = '<iframe width="640" height="360" src="{0}{1}" frameborder="0" data-id="{1}" allowfullscreen="0"></iframe>';
+				var youtube = 'http://www.youtube.com/embed/';
+				var youku = 'http://player.youku.com/embed/';
+				switch(provider.toLowerCase()) {
+					case "youtu":
+						return String.format(iframe, youtube, vid);
+					case "youku":
+						vid = vid.replace('.html', '');
+						return String.format(iframe, youku, vid);
+				}
 				return '';
 			}
 
 			function initMovieEditor(sender) {
-				var youtube = '<iframe width="640" height="360" src="http://www.youtube.com/embed/{0}" frameborder="0" data-id="{0}" allowfullscreen="0"></iframe>';
 				var $MovieEditor = $('#PSEditor .movieEditor');
 				$MovieEditor.find(".ps_ok").click(function() {
 					$sender.find("img").remove();
 					$sender.find("iframe").remove();
-					$sender.prepend(String.format(youtube, getYoutubeId($MovieEditor.find('textarea').val())));
+					$sender.prepend(getVideo($.trim($MovieEditor.find('textarea').val())));
 					closeMask();
 				});
 				$MovieEditor.find('textarea').click(function() {
@@ -227,7 +236,6 @@ String.format = function() {
 			function initSwitchEditor(sender) {
 				var $SwitchEditor = $('#PSEditor .switchEditor');
 				$SwitchEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
-				var a = 1;
 				var option1 = {
 					width : 315,
 					height : 90,
@@ -328,11 +336,8 @@ String.format = function() {
 					});
 					openMask($BannerEditor, 500, 642);
 				});
-			};( function init() {
-					if (settings.getImgUrl == '')
-						throw 'The option [getImgUrl] is required.';
-					initPSEditor(element1, settings.getImgUrl);
-				}());
+			}
+
 		};
 
 		$.fn.PSEditor = function(options) {
