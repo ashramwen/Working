@@ -5,14 +5,18 @@ $(function() {
 		btnPause : '.pauseButton'
 	});
 
+	$('[data-type="AdArea"]').hover(function() {
+		$(this).find('[data-type="AdImage"]:first').css("visibility", "visible");
+	}, function() {
+		$(this).find('[data-type="AdImage"]:first').css("visibility", "hidden");
+	});
+
 	var editor = $('#strContent').PSEditor({
 		getImgUrl : 'testjson2'
 	});
-	var test = $("#element").pluginName();
+
 	$("#getData").click(function(){
-		//var v = editor.GetAll();
 		console.log(JSON.stringify(editor.Get(0)));
 		console.log(JSON.stringify(editor.GetAll()));
 	});
-	var a=1;
 });
