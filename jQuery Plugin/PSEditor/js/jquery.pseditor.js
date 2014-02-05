@@ -14,7 +14,8 @@ String.format = function() {
 		str = str.replace(re, arguments[i]);
 	}
 	return str;
-}; ( function($) {
+};
+( function($) {
 		var PSEditor = function(element1, options) {
 			var plugin = this;
 			var $sender;
@@ -32,30 +33,7 @@ String.format = function() {
 			};
 			var settings = $.extend({
 				getImgUrl : ''
-			}, options); ( function initPSEditor(sender, getImgUrl) {
-					if (getImgUrl == '')
-						throw 'The option [getImgUrl] is required.';
-					if ($("#PSEditor").length == 0) {
-						var src = "";
-						if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
-							src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
-						else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
-							src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
-						$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
-							var editorHtml = ajax1[0];
-							var imgJson = JSON.parse(ajax2[0]);
-							var i = 0;
-							var imgs = new Array();
-							for (var img in imgJson) {
-								imgs[i++] = imgJson[img];
-							}
-							generateImg(imgs);
-							$('body').append(editorHtml);
-							initEditors(sender);
-						});
-					} else
-						initEditors(sender);
-				}(element1, settings.getImgUrl));
+			}, options);
 
 			function generateImg(imgs) {
 				var thumbPattern = '<div><img src="{0}" data-src="{1}" /></div>';
@@ -336,8 +314,30 @@ String.format = function() {
 					});
 					openMask($BannerEditor, 500, 642);
 				});
-			}
-
+			};( function initPSEditor(sender, getImgUrl) {
+					if (getImgUrl == '')
+						throw 'The option [getImgUrl] is required.';
+					if ($("#PSEditor").length == 0) {
+						var src = "";
+						if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
+							src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
+						else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
+							src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
+						$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
+							var editorHtml = ajax1[0];
+							var imgJson = JSON.parse(ajax2[0]);
+							var i = 0;
+							var imgs = new Array();
+							for (var img in imgJson) {
+								imgs[i++] = imgJson[img];
+							}
+							generateImg(imgs);
+							$('body').append(editorHtml);
+							initEditors(sender);
+						});
+					} else
+						initEditors(sender);
+				}(element1, settings.getImgUrl));
 		};
 
 		$.fn.PSEditor = function(options) {
