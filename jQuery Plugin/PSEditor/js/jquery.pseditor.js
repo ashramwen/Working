@@ -323,7 +323,7 @@ String.format = function() {
 							src = $('script[src$="jquery.pseditor.min.js"]:first').attr("src").replace("jquery.pseditor.min.js", "pseditor.html");
 						else if ($('script[src$="jquery.pseditor.js"]:first').length > 0)
 							src = $('script[src$="jquery.pseditor.js"]:first').attr("src").replace("jquery.pseditor.js", "pseditor.html");
-						$.when($.get(src), $.get(getImgUrl)).then(function(ajax1, ajax2) {
+						$.when($.get(src), $.get(getImgUrl, null, null, "json")).then(function(ajax1, ajax2) {
 							var editorHtml = ajax1[0];
 							var imgJson = ajax2[0];
 							var i = 0;
