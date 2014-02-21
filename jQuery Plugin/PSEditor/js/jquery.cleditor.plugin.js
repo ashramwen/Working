@@ -60,7 +60,7 @@
 		function outerlinkClick(e, data) {
 			// Get the editor
 			var editor = data.editor;
-			var editText = editor.$frame.contents().find('body').html().trim();
+			var editText = $.trim(editor.$frame.contents().find('body').html());
 			if (editText.indexOf('[OpenNewPage]') == -1) {
 				$(data.popup).find(':radio:first').prop('checked', true);
 				$(data.popup).find(':radio:last').prop('checked', false);
