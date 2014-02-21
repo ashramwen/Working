@@ -119,6 +119,7 @@ String.format = function() {
 			//TextEditor & TextImageEditor
 			function initTextImageEditor(sender) {
 				var $textEditor = $("#PSEditor .textEditor");
+				var placeholder = "";
 				$textEditor.find(".ps_divGallery").append($(imgArray.original).addClass("ps_gallery"));
 				var option = {
 					width : 428,
@@ -127,18 +128,24 @@ String.format = function() {
 				};
 				$.extend(true, option, defaultOption);
 				var $txtEdit = $textEditor.find("textarea").cleditor(option);
+				$txtEdit[0].focused(function(e) {
+					if ($(e.currentTarget.doc).find("body").html() == placeholder)
+						e.currentTarget.clear();
+				});
 				$textEditor.find(".ps_ok").click(function() {
 					$sender.html($txtEdit.getHtml());
 					closeMask();
 				});
 				$(sender).delegate('[data-type="Text"]', 'click', function() {
 					$sender = $(this);
+					placeholder = $sender.data("text");
 					$textEditor.find(".ps_content").hide();
 					$txtEdit.updateHtml($sender.html());
 					openMask($textEditor, 500, 497);
 				});
 				$(sender).delegate('[data-type="TextImage"]', 'click', function() {
 					$sender = $(this);
+					placeholder = $sender.data("text");
 					$textEditor.find(".ps_content").show();
 					$txtEdit.updateHtml($sender.html());
 					openMask($textEditor, 500, 497);
@@ -213,6 +220,7 @@ String.format = function() {
 
 			function initSwitchEditor(sender) {
 				var $SwitchEditor = $('#PSEditor .switchEditor');
+				var placeholder = "";
 				$SwitchEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
 				var option1 = {
 					width : 315,
@@ -232,6 +240,10 @@ String.format = function() {
 				$switchArea1[0].focus();
 				$.extend(true, option2, defaultOption);
 				var $switchArea2 = $SwitchEditor.find(".switchArea2").cleditor(option2);
+				$switchArea2[0].focused(function(e) {
+					if ($(e.currentTarget.doc).find("body").html() == placeholder)
+						e.currentTarget.clear();
+				});
 				$SwitchEditor.find(".ps_drag").draggable({
 					revert : "invalid", // when not dropped, the item will revert back to its initial position
 					helper : "clone",
@@ -257,6 +269,7 @@ String.format = function() {
 				});
 				$(sender).delegate('[data-type="AdArea"]', 'click', function() {
 					$sender = $(this);
+					placeholder = $sender.find('[data-type="AdText"]').data("text");
 					$sender.find('[data-type="AdImage"] img').each(function(index, element) {
 						$SwitchEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
 					});
@@ -294,13 +307,16 @@ String.format = function() {
 					drop : function(event, ui) {
 						var img = ui.draggable.find("img").data("src");
 						$(this).find("img").attr("src", img);
+						$(this).parents(".ps_divSwitch").data("live", true);
 					}
 				});
 				$BannerEditor.find(".ps_icon_trash").click(function() {
 					$(this).parent().find("img").attr("src", "");
+					$(this).parents(".ps_divSwitch").data("live", false);
 				});
 				$BannerEditor.find(".ps_ok").click(function() {
 					$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
+						$sender.find('[data-type="BannerImage"]').eq(index).data("live", $(this).data("live"));
 						$sender.find('[data-type="BannerImage"] img').eq(index).attr('src', $(element).find("img").attr('src'));
 						$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[index].getHtml());
 					});
@@ -309,6 +325,7 @@ String.format = function() {
 				$(sender).delegate('[data-type="BannerArea"]', 'click', function() {
 					$sender = $(this);
 					$.each(switchArea, function(index, element) {
+						$BannerEditor.find(".ps_divSwitch").eq(index).data("live", $sender.find('[data-type="BannerImage"]').eq(index).data("live"));
 						$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="BannerImage"] img').eq(index).attr('src'));
 						element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
 					});
