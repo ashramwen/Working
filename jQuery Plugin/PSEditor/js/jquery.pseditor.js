@@ -57,6 +57,8 @@ String.format = function() {
 				initSwitchEditor(sender);
 				//BannerEditor
 				initBannerEditor(sender);
+				//ImageLinkEditor
+				initImageLinkEditor(sender);
 				//cancel click
 				$("#PSEditor .ps_cnl").click(closeMask);
 				//Gallery Move
@@ -128,22 +130,30 @@ String.format = function() {
 				};
 				$.extend(true, option, defaultOption);
 				var $txtEdit = $textEditor.find("textarea").cleditor(option);
-				$txtEdit[0].focused(function(e) {
-					if ($(e.currentTarget.doc).find("body").html() == placeholder)
-						e.currentTarget.clear();
+				$($txtEdit[0].$frame[0].contentWindow).focus(function(e) {
+					if ($txtEdit.getHtml() == placeholder)
+						$txtEdit[0].clear();
 				});
+				/* CLEditor V1.4.4
+				 $txtEdit[0].focused(function(e) {
+				 if ($(e.currentTarget.doc).find("body").html() == placeholder)
+				 e.currentTarget.clear();
+				 });
+				 */
 				$textEditor.find(".ps_ok").click(function() {
 					$sender.html($txtEdit.getHtml());
 					closeMask();
 				});
-				$(sender).delegate('[data-type="Text"]', 'click', function() {
+				$(sender).delegate('[data-type="Text"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					placeholder = $sender.data("text");
 					$textEditor.find(".ps_content").hide();
 					$txtEdit.updateHtml($sender.html());
 					openMask($textEditor, 500, 497);
 				});
-				$(sender).delegate('[data-type="TextImage"]', 'click', function() {
+				$(sender).delegate('[data-type="TextImage"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					placeholder = $sender.data("text");
 					$textEditor.find(".ps_content").show();
@@ -164,7 +174,8 @@ String.format = function() {
 					$sender.find("img:first").attr("src", src);
 					closeMask();
 				});
-				$(sender).delegate('[data-type="Image"]', 'click', function() {
+				$(sender).delegate('[data-type="Image"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					var src = $sender.find("img:first").attr("src");
 					$ImgSelector.find(".ps_album img.blueborder").removeClass("blueborder");
@@ -210,7 +221,8 @@ String.format = function() {
 				$MovieEditor.find('textarea').click(function() {
 					this.select();
 				});
-				$(sender).delegate('[data-type="Movie"]', 'click', function() {
+				$(sender).delegate('[data-type="Movie"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					if ($sender.find("iframe").length > 0)
 						$MovieEditor.find('textarea').val($sender.find("iframe").attr("src"));
@@ -240,10 +252,16 @@ String.format = function() {
 				$switchArea1[0].focus();
 				$.extend(true, option2, defaultOption);
 				var $switchArea2 = $SwitchEditor.find(".switchArea2").cleditor(option2);
-				$switchArea2[0].focused(function(e) {
-					if ($(e.currentTarget.doc).find("body").html() == placeholder)
-						e.currentTarget.clear();
+				$($switchArea2[0].$frame[0].contentWindow).focus(function(e) {
+					if ($switchArea2.getHtml() == placeholder)
+						$switchArea2[0].clear();
 				});
+				/* CLEditor V1.4.4
+				 $switchArea2[0].focused(function(e) {
+				 if ($(e.currentTarget.doc).find("body").html() == placeholder)
+				 e.currentTarget.clear();
+				 });
+				 */
 				$SwitchEditor.find(".ps_drag").draggable({
 					revert : "invalid", // when not dropped, the item will revert back to its initial position
 					helper : "clone",
@@ -267,7 +285,8 @@ String.format = function() {
 					$sender.find('[data-type="AdText"]').html($switchArea2.getHtml());
 					closeMask();
 				});
-				$(sender).delegate('[data-type="AdArea"]', 'click', function() {
+				$(sender).delegate('[data-type="AdArea"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					placeholder = $sender.find('[data-type="AdText"]').data("text");
 					$sender.find('[data-type="AdImage"] img').each(function(index, element) {
@@ -307,33 +326,91 @@ String.format = function() {
 					drop : function(event, ui) {
 						var img = ui.draggable.find("img").data("src");
 						$(this).find("img").attr("src", img);
-						$(this).parents(".ps_divSwitch").data("live", true);
+						$(this).parents(".ps_divSwitch").data("del", false);
 					}
 				});
 				$BannerEditor.find(".ps_icon_trash").click(function() {
 					$(this).parent().find("img").attr("src", "");
-					$(this).parents(".ps_divSwitch").data("live", false);
+					$(this).parents(".ps_divSwitch").data("del", true);
 				});
 				$BannerEditor.find(".ps_ok").click(function() {
 					$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
-						$sender.find('[data-type="BannerImage"]').eq(index).data("live", $(this).data("live"));
+						$sender.find('[data-type="BannerImage"]').eq(index).data("del", $(this).data("del"));
 						$sender.find('[data-type="BannerImage"] img').eq(index).attr('src', $(element).find("img").attr('src'));
 						$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[index].getHtml());
 					});
 					closeMask();
 				});
-				$(sender).delegate('[data-type="BannerArea"]', 'click', function() {
+				$(sender).delegate('[data-type="BannerArea"]', 'click', function(e) {
+					e.preventDefault();
 					$sender = $(this);
 					$.each(switchArea, function(index, element) {
-						$BannerEditor.find(".ps_divSwitch").eq(index).data("live", $sender.find('[data-type="BannerImage"]').eq(index).data("live"));
+						$BannerEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="BannerImage"]').eq(index).data("del"));
 						$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="BannerImage"] img').eq(index).attr('src'));
 						element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
 					});
 					openMask($BannerEditor, 500, 642);
 				});
-			};( function initPSEditor(sender, getImgUrl) {
+			}
+
+			function initImageLinkEditor(sender) {
+				var $ImageLinkEditor = $('#PSEditor .switchEditor');
+				$ImageLinkEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
+				var option1 = {
+					width : 315,
+					height : 90,
+					controls : "outerlink"
+				};
+				$.extend(true, option1, defaultOption);
+				var $imageLinkArea = $ImageLinkEditor.find(".switchArea1").cleditor(option1);
+				$imageLinkArea[0].$frame.contents().find("body").keypress(function(e) {
+					e.preventDefault();
+				});
+				$imageLinkArea[0].focus();
+				$ImageLinkEditor.find(".ps_drag").draggable({
+					revert : "invalid", // when not dropped, the item will revert back to its initial position
+					helper : "clone",
+					appendTo : ".switchEditor"
+				});
+				$ImageLinkEditor.find(".ps_widget_content_div").droppable({
+					accept : ".ps_drag",
+					drop : function(event, ui) {
+						var img = ui.draggable.find("img").data("src");
+						$(this).find("img").attr("src", img);
+					}
+				});
+				$ImageLinkEditor.find(".ps_ok").click(function() {
+					$sender.find('img[data-type="ImageSrc"]:first').attr('src', $ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src'));
+					var link = $imageLinkArea.getHtml();
+					if (link.indexOf('[OpenNewPage]') == -1) {
+						$sender.removeAttr("target");
+					} else {
+						link = link.replace('[OpenNewPage]', '');
+						$sender.attr("target", "_blank");
+					}
+					$sender.attr("href", link);
+					$ImageLinkEditor.find(".ps_icon_trash").show();
+					$ImageLinkEditor.find(".ps_divSwitch:last").show();
+					closeMask();
+				});
+				$ImageLinkEditor.find(".ps_cnl").click(function() {
+					$ImageLinkEditor.find(".ps_icon_trash").show();
+					$ImageLinkEditor.find(".ps_divSwitch:last").show();
+				});
+				$(sender).delegate('[data-type="ImageLink"]', 'click', function(e) {
+					e.preventDefault();
+					$sender = $(this);
+					$ImageLinkEditor.find(".ps_icon_trash").hide();
+					$ImageLinkEditor.find(".ps_divSwitch:last").hide();
+					$ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src', $sender.find('img[data-type="ImageSrc"]:first').attr('src'));
+					$imageLinkArea.updateHtml($sender.attr("href"));
+					openMask($ImageLinkEditor, 500, 479);
+				});
+			}
+
+			;( function initPSEditor(sender, getImgUrl) {
 					if (getImgUrl == '')
-						throw 'The option [getImgUrl] is required.';
+						throw 'The option [getImgUrl] is necessary.';
 					if ($("#PSEditor").length == 0) {
 						var src = "";
 						if ($('script[src$="jquery.pseditor.min.js"]:first').length > 0)
@@ -382,6 +459,12 @@ String.format = function() {
 					case "Movie":
 						if ($self.find("iframe").length > 0)
 							data.Value = $self.find("iframe").attr("src");
+						break;
+					case "ImageLink":
+						data.Value = $self.attr("href");
+						break;
+					case "ImageSrc":
+						data.Value = $self.attr("src");
 						break;
 					default:
 						data.Value = $.trim($self.html()).replace(/<!--(.*?)-->/gm, "");
