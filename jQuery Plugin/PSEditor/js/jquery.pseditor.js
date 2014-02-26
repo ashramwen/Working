@@ -141,7 +141,10 @@ String.format = function() {
 				 });
 				 */
 				$textEditor.find(".ps_ok").click(function() {
-					$sender.html($txtEdit.getHtml());
+					if (!$txtEdit.getHtml())
+						$sender.html(placeholder);
+					else
+						$sender.html($txtEdit.getHtml());
 					closeMask();
 				});
 				$(sender).delegate('[data-type="Text"]', 'click', function(e) {
