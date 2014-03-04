@@ -3,7 +3,7 @@
  *
  * @author augustine
  *
- * Date: 2014/01/13
+ * Date: 2014/03/04
  */
 String.format = function() {
 	if (arguments.length == 0)
@@ -14,8 +14,7 @@ String.format = function() {
 		str = str.replace(re, arguments[i]);
 	}
 	return str;
-};
-( function($) {
+}; ( function($) {
 		var PSEditor = function(element1, options) {
 			var plugin = this;
 			var $sender;
@@ -248,7 +247,7 @@ String.format = function() {
 					controls : "bold italic underline | bullets | color | insertlink unlink | pastetext"
 				};
 				$.extend(true, option1, defaultOption);
-				var $switchArea1 = $SwitchEditor.find(".switchArea1").cleditor(option1);
+				$switchArea1 = $SwitchEditor.find(".switchArea1").cleditor(option1);
 				$switchArea1[0].$frame.contents().find("body").keypress(function(e) {
 					e.preventDefault();
 				});
@@ -358,33 +357,9 @@ String.format = function() {
 
 			function initImageLinkEditor(sender) {
 				var $ImageLinkEditor = $('#PSEditor .switchEditor');
-				$ImageLinkEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
-				var option1 = {
-					width : 315,
-					height : 90,
-					controls : "outerlink"
-				};
-				$.extend(true, option1, defaultOption);
-				var $imageLinkArea = $ImageLinkEditor.find(".switchArea1").cleditor(option1);
-				$imageLinkArea[0].$frame.contents().find("body").keypress(function(e) {
-					e.preventDefault();
-				});
-				$imageLinkArea[0].focus();
-				$ImageLinkEditor.find(".ps_drag").draggable({
-					revert : "invalid", // when not dropped, the item will revert back to its initial position
-					helper : "clone",
-					appendTo : ".switchEditor"
-				});
-				$ImageLinkEditor.find(".ps_widget_content_div").droppable({
-					accept : ".ps_drag",
-					drop : function(event, ui) {
-						var img = ui.draggable.find("img").data("src");
-						$(this).find("img").attr("src", img);
-					}
-				});
 				$ImageLinkEditor.find(".ps_ok").click(function() {
 					$sender.find('img[data-type="ImageSrc"]:first').attr('src', $ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src'));
-					var link = $imageLinkArea.getHtml();
+					var link = $switchArea1.getHtml();
 					if (link.indexOf('[OpenNewPage]') == -1) {
 						$sender.removeAttr("target");
 					} else {
@@ -406,7 +381,7 @@ String.format = function() {
 					$ImageLinkEditor.find(".ps_icon_trash").hide();
 					$ImageLinkEditor.find(".ps_divSwitch:last").hide();
 					$ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src', $sender.find('img[data-type="ImageSrc"]:first').attr('src'));
-					$imageLinkArea.updateHtml($sender.attr("href"));
+					$switchArea1.updateHtml($sender.attr("href"));
 					openMask($ImageLinkEditor, 500, 479);
 				});
 			}
