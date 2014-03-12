@@ -1,3 +1,8 @@
+// ==ClosureCompiler==
+// @output_file_name default.js
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// ==/ClosureCompiler==
+
 /**
  * WYSIWYG Post & See Editor v1.0
  *
@@ -298,7 +303,11 @@ String.format = function() {
 					$SwitchEditor.find(".ps_widget_content_div img").each(function(index, element) {
 						$sender.find('[data-type="AdImage"] img').eq(index).attr('src', $(element).attr('src'));
 					});
-					$sender.find('[data-type="AdUrl"]').html($switchArea1.getHtml());
+					var link = $switchArea1.getHtml();
+					if (!link || $sender.find('[data-type="BannerUrl"]').eq(index).data("text") == link)
+						$sender.find('[data-type="AdUrl"]').html("");
+					else
+						$sender.find('[data-type="AdUrl"]').html(link);
 					$sender.find('[data-type="AdText"]').html($switchArea2.getHtml());
 					closeMask();
 				});
@@ -337,7 +346,11 @@ String.format = function() {
 					$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
 						$sender.find('[data-type="BannerImage"]').eq(index).data("del", $(this).data("del"));
 						$sender.find('[data-type="BannerImage"] img').eq(index).attr('src', $(element).find("img").attr('src'));
-						$sender.find('[data-type="BannerUrl"]').eq(index).html(switchArea[index].getHtml());
+						var link = switchArea[index].getHtml();
+						if (!link || $sender.find('[data-type="BannerUrl"]').eq(index).data("text") == link)
+							$sender.find('[data-type="BannerUrl"]').eq(index).html("");
+						else
+							$sender.find('[data-type="BannerUrl"]').eq(index).html(link);
 					});
 					closeMask();
 				});
@@ -358,13 +371,17 @@ String.format = function() {
 				$ImageLinkEditor.find(".ps_ok").click(function() {
 					$sender.find('img[data-type="ImageSrc"]:first').attr('src', $ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src'));
 					var link = $switchArea1.getHtml();
-					if (link.indexOf('[OpenNewPage]') == -1) {
-						$sender.removeAttr("target");
-					} else {
-						link = link.replace('[OpenNewPage]', '');
-						$sender.attr("target", "_blank");
+					if (!link || $sender.data("text") == link)
+						$sender.attr("href", "");
+					else {
+						if (link.indexOf('[OpenNewPage]') == -1) {
+							$sender.removeAttr("target");
+						} else {
+							link = link.replace('[OpenNewPage]', '');
+							$sender.attr("target", "_blank");
+						}
+						$sender.attr("href", link);
 					}
-					$sender.attr("href", link);
 					$ImageLinkEditor.find(".ps_icon_trash").show();
 					$ImageLinkEditor.find(".ps_divSwitch:last").show();
 					closeMask();
@@ -382,7 +399,7 @@ String.format = function() {
 					$ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src', $sender.find('img[data-type="ImageSrc"]:first').attr('src'));
 					var link = "";
 					if (!$sender.attr("href"))
-						$switchArea1.updateHtml($sender.data("text"));
+						$switchArea1.updateHtml(defaultLink);
 					else {
 						if ($sender.attr("target") == "_blank")
 							link = "[OpenNewPage]";
@@ -417,13 +434,17 @@ String.format = function() {
 						$sender.find('[data-type="SlidesImage"]').eq(index).attr('src', $(element).find("img").attr('src'));
 						var $SlidesUrl = $sender.find('[data-type="SlidesUrl"]').eq(index);
 						var link = textArea[index].getHtml();
-						if (link.indexOf('[OpenNewPage]') == -1) {
-							$SlidesUrl.removeAttr("target");
-						} else {
-							link = link.replace('[OpenNewPage]', '');
-							$SlidesUrl.attr("target", "_blank");
+						if (!link || $SlidesUrl.data("text") == link)
+							$SlidesUrl.attr("href", "");
+						else {
+							if (link.indexOf('[OpenNewPage]') == -1) {
+								$SlidesUrl.removeAttr("target");
+							} else {
+								link = link.replace('[OpenNewPage]', '');
+								$SlidesUrl.attr("target", "_blank");
+							}
+							$SlidesUrl.attr("href", link);
 						}
-						$SlidesUrl.attr("href", link);
 					});
 					closeMask();
 				});
@@ -431,13 +452,18 @@ String.format = function() {
 					e.preventDefault();
 					$sender = $(this);
 					$.each(textArea, function(index, element) {
+						defaultLink = $sender.find('[data-type="SlidesUrl"]').eq(index).data("text");
 						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="SlidesImage"]').eq(index).data("del"));
 						$SlidesEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="SlidesImage"]').eq(index).attr('src'));
 						var link = "";
-						if ($sender.find('[data-type="SlidesUrl"]').eq(index).attr("target") == "_blank")
-							link = "[OpenNewPage]";
-						link += $sender.find('[data-type="SlidesUrl"]').eq(index).attr("href");
-						element.updateHtml(link);
+						if (!$sender.find('[data-type="SlidesUrl"]').eq(index).attr("href"))
+							element.updateHtml(defaultLink);
+						else {
+							if ($sender.find('[data-type="SlidesUrl"]').eq(index).attr("target") == "_blank")
+								link = "[OpenNewPage]";
+							link += $sender.find('[data-type="SlidesUrl"]').eq(index).attr("href");
+							element.updateHtml(link);
+						}
 					});
 					openMask($SlidesEditor, 500, 642);
 					$SlidesEditor.find(".ps_popup").scrollTop(0);
