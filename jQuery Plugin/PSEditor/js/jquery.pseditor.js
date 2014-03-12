@@ -318,7 +318,10 @@ String.format = function() {
 					$sender.find('[data-type="AdImage"] img').each(function(index, element) {
 						$SwitchEditor.find(".ps_widget_content_div img").eq(index).attr('src', $(element).attr('src'));
 					});
-					$switchArea1.updateHtml($sender.find('[data-type="AdUrl"]').html());
+					if (!$sender.find('[data-type="AdUrl"]').html())
+						$switchArea1.updateHtml($sender.find('[data-type="AdUrl"]').data("text"));
+					else
+						$switchArea1.updateHtml($sender.find('[data-type="AdUrl"]').html());
 					$switchArea2.updateHtml($sender.find('[data-type="AdText"]').html());
 					openMask($SwitchEditor, 500, 479);
 				});
@@ -360,7 +363,10 @@ String.format = function() {
 					$.each(switchArea, function(index, element) {
 						$BannerEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="BannerImage"]').eq(index).data("del"));
 						$BannerEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="BannerImage"] img').eq(index).attr('src'));
-						element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
+						if (!$sender.find('[data-type="BannerUrl"]').eq(index).html())
+							element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).data("text"));
+						else
+							element.updateHtml($sender.find('[data-type="BannerUrl"]').eq(index).html());
 					});
 					openMask($BannerEditor, 500, 642);
 				});
