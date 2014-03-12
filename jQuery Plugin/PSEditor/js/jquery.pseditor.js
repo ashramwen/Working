@@ -14,7 +14,8 @@ String.format = function() {
 		str = str.replace(re, arguments[i]);
 	}
 	return str;
-}; ( function($) {
+};
+( function($) {
 		var PSEditor = function(element1, options) {
 			var plugin = this;
 			var $sender;
@@ -45,6 +46,26 @@ String.format = function() {
 				imgArray.original = imgs[1].join("");
 			}
 
+			function dragImg() {
+				$("#PSEditor .ps_drag").draggable({
+					revert : "invalid", // when not dropped, the item will revert back to its initial position
+					helper : "clone",
+					appendTo : ".ps_dialog"
+				});
+				$("#PSEditor .ps_widget_content_div").droppable({
+					accept : ".ps_drag",
+					drop : function(event, ui) {
+						var img = ui.draggable.find("img").data("src");
+						$(this).find("img").attr("src", img);
+						$(this).parents(".ps_divSwitch").data("del", false);
+					}
+				});
+				$("#PSEditor .ps_icon_trash").click(function() {
+					$(this).parent().find("img").attr("src", "");
+					$(this).parents(".ps_divSwitch").data("del", true);
+				});
+			}
+
 			function initEditors(sender) {
 				//TextEditor & TextImageEditor
 				initTextImageEditor(sender);
@@ -58,10 +79,14 @@ String.format = function() {
 				initBannerEditor(sender);
 				//ImageLinkEditor
 				initImageLinkEditor(sender);
+				//SlidesEditor
+				initSlidesEditor(sender);
 				//cancel click
 				$("#PSEditor .ps_cnl").click(closeMask);
 				//Gallery Move
 				galleryMove();
+				//Image drag
+				dragImg();
 			}
 
 			function openMask($target, newWidth, newHeight) {
@@ -88,6 +113,7 @@ String.format = function() {
 				$("#PSEditor .ps_dialog").hide();
 				$("#PSEditor #PSEditor_mask").hide();
 				$("#PSEditor .ps_divGallery").css('left', 0);
+				$("#PSEditor .ps_divSwitch").data("del", false);
 				imgIndex = 0;
 			}
 
@@ -264,21 +290,6 @@ String.format = function() {
 				 e.currentTarget.clear();
 				 });
 				 */
-				$SwitchEditor.find(".ps_drag").draggable({
-					revert : "invalid", // when not dropped, the item will revert back to its initial position
-					helper : "clone",
-					appendTo : ".switchEditor"
-				});
-				$SwitchEditor.find(".ps_widget_content_div").droppable({
-					accept : ".ps_drag",
-					drop : function(event, ui) {
-						var img = ui.draggable.find("img").data("src");
-						$(this).find("img").attr("src", img);
-					}
-				});
-				$SwitchEditor.find(".ps_icon_trash").click(function() {
-					$(this).parent().find("img").attr("src", "");
-				});
 				$SwitchEditor.find(".ps_ok").click(function() {
 					$SwitchEditor.find(".ps_widget_content_div img").each(function(index, element) {
 						$sender.find('[data-type="AdImage"] img').eq(index).attr('src', $(element).attr('src'));
@@ -317,23 +328,6 @@ String.format = function() {
 						e.preventDefault();
 					});
 					switchArea[index] = editor;
-				});
-				$BannerEditor.find(".ps_drag").draggable({
-					revert : "invalid", // when not dropped, the item will revert back to its initial position
-					helper : "clone",
-					appendTo : ".bannerEditor"
-				});
-				$BannerEditor.find(".ps_widget_content_div").droppable({
-					accept : ".ps_drag",
-					drop : function(event, ui) {
-						var img = ui.draggable.find("img").data("src");
-						$(this).find("img").attr("src", img);
-						$(this).parents(".ps_divSwitch").data("del", false);
-					}
-				});
-				$BannerEditor.find(".ps_icon_trash").click(function() {
-					$(this).parent().find("img").attr("src", "");
-					$(this).parents(".ps_divSwitch").data("del", true);
 				});
 				$BannerEditor.find(".ps_ok").click(function() {
 					$BannerEditor.find(".ps_divSwitch").each(function(index, element) {
@@ -383,6 +377,53 @@ String.format = function() {
 					$ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src', $sender.find('img[data-type="ImageSrc"]:first').attr('src'));
 					$switchArea1.updateHtml($sender.attr("href"));
 					openMask($ImageLinkEditor, 500, 479);
+				});
+			}
+
+			function initSlidesEditor(sender) {
+				var $SlidesEditor = $('#PSEditor .slidesEditor');
+				$SlidesEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
+				var option1 = {
+					width : 315,
+					height : 90,
+					controls : "outerlink"
+				};
+				$.extend(true, option1, defaultOption);
+				var textArea = new Array();
+				$SlidesEditor.find("textarea").each(function(index) {
+					var editor = $(this).cleditor(option1);
+					editor.focus();
+					editor[0].$frame.contents().find("body").keypress(function(e) {
+						e.preventDefault();
+					});
+					textArea[index] = editor;
+				});
+				$SlidesEditor.find(".ps_ok").click(function() {
+					$SlidesEditor.find(".ps_divSwitch").each(function(index, element) {
+						$sender.find('[data-type="SlidesSet"]').eq(index).data("del", $(this).data("del"));
+						$sender.find('[data-type="SlidesImage"]').eq(index).attr('src', $(element).find("img").attr('src'));
+						var $SlidesUrl = $sender.find('[data-type="SlidesUrl"]').eq(index);
+						var link = textArea[index].getHtml();
+						if (link.indexOf('[OpenNewPage]') == -1) {
+							$SlidesUrl.removeAttr("target");
+						} else {
+							link = link.replace('[OpenNewPage]', '');
+							$SlidesUrl.attr("target", "_blank");
+						}
+						$SlidesUrl.attr("href", link);
+					});
+					closeMask();
+				});
+				$(sender).delegate('[data-type="SlidesArea"]', 'click', function(e) {
+					e.preventDefault();
+					$sender = $(this);
+					$.each(textArea, function(index, element) {
+						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="SlidesImage"]').eq(index).data("del"));
+						$SlidesEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="SlidesImage"]').eq(index).attr('src'));
+						element.updateHtml($sender.find('[data-type="SlidesUrl"]').eq(index).attr("href"));
+					});
+					openMask($SlidesEditor, 500, 642);
+					$SlidesEditor.find(".ps_popup").scrollTop(0);
 				});
 			}
 
@@ -439,9 +480,11 @@ String.format = function() {
 							data.Value = $self.find("iframe").attr("src");
 						break;
 					case "ImageLink":
+					case "SlidesUrl":
 						data.Value = $self.attr("href");
 						break;
 					case "ImageSrc":
+					case "SlidesImage":
 						data.Value = $self.attr("src");
 						break;
 					default:
@@ -486,5 +529,4 @@ String.format = function() {
 			this.Type = "";
 			this.Value = "";
 		};
-	}(jQuery));
-
+	}(jQuery)); 
