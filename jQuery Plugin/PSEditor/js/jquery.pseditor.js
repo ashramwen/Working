@@ -1,8 +1,3 @@
-// ==ClosureCompiler==
-// @output_file_name default.js
-// @compilation_level SIMPLE_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 /**
  * WYSIWYG Post & See Editor v1.0
  *
@@ -282,7 +277,7 @@ String.format = function() {
 					controls : "bold italic underline | bullets | color | insertlink unlink | pastetext"
 				};
 				$.extend(true, option1, defaultOption);
-				$switchArea1 = $SwitchEditor.find(".switchArea1").cleditor(option1);
+				var $switchArea1 = $SwitchEditor.find(".switchArea1").cleditor(option1);
 				$switchArea1[0].$frame.contents().find("body").keypress(function(e) {
 					e.preventDefault();
 				});
@@ -373,7 +368,19 @@ String.format = function() {
 			}
 
 			function initImageLinkEditor(sender) {
-				var $ImageLinkEditor = $('#PSEditor .switchEditor');
+				var $ImageLinkEditor = $('#PSEditor .imgLinkEditor');
+				$ImageLinkEditor.find(".ps_divGallery").append($(imgArray.thumb).addClass("ps_gallery ps_drag"));
+				var option1 = {
+					width : 315,
+					height : 90,
+					controls : "outerlink"
+				};
+				$.extend(true, option1, defaultOption);
+				var $switchArea1 = $ImageLinkEditor.find(".switchArea1").cleditor(option1);
+				$switchArea1[0].$frame.contents().find("body").keypress(function(e) {
+					e.preventDefault();
+				});
+				$switchArea1[0].focus();
 				$ImageLinkEditor.find(".ps_ok").click(function() {
 					$sender.find('img[data-type="ImageSrc"]:first').attr('src', $ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src'));
 					var link = $switchArea1.getHtml();
@@ -401,7 +408,6 @@ String.format = function() {
 					$sender = $(this);
 					defaultLink = $sender.data("text");
 					$ImageLinkEditor.find(".ps_icon_trash").hide();
-					$ImageLinkEditor.find(".ps_divSwitch:last").hide();
 					$ImageLinkEditor.find(".ps_widget_content_div img:first").attr('src', $sender.find('img[data-type="ImageSrc"]:first').attr('src'));
 					var link = "";
 					if (!$sender.attr("href"))
