@@ -304,7 +304,7 @@ String.format = function() {
 						$sender.find('[data-type="AdImage"] img').eq(index).attr('src', $(element).attr('src'));
 					});
 					var link = $switchArea1.getHtml();
-					if (!link || $sender.find('[data-type="BannerUrl"]').eq(index).data("text") == link)
+					if (!link || $sender.find('[data-type="AdUrl"]').eq(index).data("text") == link)
 						$sender.find('[data-type="AdUrl"]').html("");
 					else
 						$sender.find('[data-type="AdUrl"]').html(link);
