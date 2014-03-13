@@ -14,7 +14,8 @@ String.format = function() {
 		str = str.replace(re, arguments[i]);
 	}
 	return str;
-}; ( function($) {
+};
+( function($) {
 		var PSEditor = function(element1, options) {
 			var plugin = this;
 			var $sender;
@@ -53,10 +54,12 @@ String.format = function() {
 			}
 
 			function dragImg() {
-				$("#PSEditor .ps_drag").draggable({
-					revert : "invalid", // when not dropped, the item will revert back to its initial position
-					helper : "clone",
-					appendTo : ".ps_dialog"
+				$("#PSEditor .ps_drag").each(function(i, o) {
+					$(o).draggable({
+						revert : "invalid", // when not dropped, the item will revert back to its initial position
+						helper : "clone",
+						appendTo : $(o).closest(".ps_dialog")
+					});
 				});
 				$("#PSEditor .ps_widget_content_div").droppable({
 					accept : ".ps_drag",
