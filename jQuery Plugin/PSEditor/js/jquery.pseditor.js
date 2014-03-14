@@ -468,7 +468,7 @@ String.format = function() {
 					$sender = $(this);
 					$.each(textArea, function(index, element) {
 						defaultLink = $sender.find('[data-type="SlidesUrl"]').eq(index).data("text");
-						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="SlidesImage"]').eq(index).data("del"));
+						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="SlidesSet"]').eq(index).data("del"));
 						$SlidesEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="SlidesImage"]').eq(index).attr('src'));
 						var link = "";
 						if (!$sender.find('[data-type="SlidesUrl"]').eq(index).attr("href"))
