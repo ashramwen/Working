@@ -445,7 +445,7 @@ String.format = function() {
 				});
 				$SlidesEditor.find(".ps_ok").click(function() {
 					$SlidesEditor.find(".ps_divSwitch").each(function(index, element) {
-						$sender.find('[data-type="SlidesSet"]').eq(index).data("del", $(this).data("del"));
+						$sender.find('[data-psid]').eq(index).data("del", $(this).data("del"));
 						$sender.find('[data-type="SlidesImage"]').eq(index).attr('src', $(element).find("img").attr('src'));
 						var $SlidesUrl = $sender.find('[data-type="SlidesUrl"]').eq(index);
 						var link = textArea[index].getHtml();
@@ -468,7 +468,7 @@ String.format = function() {
 					$sender = $(this);
 					$.each(textArea, function(index, element) {
 						defaultLink = $sender.find('[data-type="SlidesUrl"]').eq(index).data("text");
-						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-type="SlidesSet"]').eq(index).data("del"));
+						$SlidesEditor.find(".ps_divSwitch").eq(index).data("del", $sender.find('[data-psid]').eq(index).data("del"));
 						$SlidesEditor.find(".ps_widget_content_div img").eq(index).attr('src', $sender.find('[data-type="SlidesImage"]').eq(index).attr('src'));
 						var link = "";
 						if (!$sender.find('[data-type="SlidesUrl"]').eq(index).attr("href"))
